@@ -1,7 +1,9 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
+import Link from "next/link";
 
 export type User = {
 	id: number;
@@ -26,6 +28,11 @@ export const columns: ColumnDef<User>[] = [
 				</Button>
 			);
 		},
+		cell: ({ row }) => (
+			<Link href="/users/john" className="capitalize">
+				{row.original.name}
+			</Link>
+		),
 	},
 	{
 		accessorKey: "email",
