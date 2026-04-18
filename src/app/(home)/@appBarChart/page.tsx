@@ -1,8 +1,8 @@
 "use client";
 
-import { Bar, BarChart } from "recharts";
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
 
-import { ChartContainer, type ChartConfig } from "@/components/ui/chart";
+import { ChartContainer, ChartLegend, ChartLegendContent, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
 
 const chartData = [
 	{ month: "January", desktop: 186, mobile: 80 },
@@ -26,11 +26,19 @@ const chartConfig = {
 
 export default function appBarChart() {
 	return (
-		<ChartContainer config={chartConfig} className="min-h-[200px] w-full">
-			<BarChart accessibilityLayer data={chartData}>
-				<Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />
-				<Bar dataKey="mobile" fill="var(--color-mobile)" radius={4} />
-			</BarChart>
-		</ChartContainer>
+		<>
+			<h1 className="mb-10 text-lg font-medium">Total Revenue</h1>
+			<ChartContainer config={chartConfig} className="min-h-[200px] w-full">
+				<BarChart accessibilityLayer data={chartData}>
+					<CartesianGrid vertical={false} />
+					<YAxis tickLine={false} tickMargin={10} axisLine={false} />
+					<XAxis dataKey="month" tickLine={false} tickMargin={10} axisLine={false} tickFormatter={(value) => value.slice(0, 3)} />
+					<ChartTooltip content={<ChartTooltipContent />} />
+					<ChartLegend content={<ChartLegendContent />} />
+					<Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />
+					<Bar dataKey="mobile" fill="var(--color-mobile)" radius={4} />
+				</BarChart>
+			</ChartContainer>
+		</>
 	);
 }
